@@ -36,17 +36,36 @@ public class ItemPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        switch (playerFightState)
+        {
+            case PlayerFightState.Idle:
+                break;
+            case PlayerFightState.Go:
+                break;
+            case PlayerFightState.Attack:
+                break;
+            case PlayerFightState.Back:
+                break;
+        }
     }
-
+    /// <summary>
+    /// 获取敌人需要的站位
+    /// </summary>
+    /// <returns></returns>
     public Transform GetEnemyPos() {
         return enemyPos;
     }
-
+    /// <summary>
+    /// 进行操作指令
+    /// </summary>
     public void Order() {
         if (playerFightState==PlayerFightState.Idle)
         {
-            transform.LookAt(TargetPlayer.GetComponent<ItemPlayer>().GetEnemyPos());
+            Vector3 v3 = new Vector3(TargetPlayer.GetComponent<ItemPlayer>().GetEnemyPos().position.x,
+                transform.position.y,
+                TargetPlayer.GetComponent<ItemPlayer>().GetEnemyPos().position.z);
+            transform.LookAt(v3);
+            playerFightState = PlayerFightState.Go;
         }
     }
 }
